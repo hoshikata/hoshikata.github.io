@@ -407,8 +407,9 @@ let otherList = {
 // contentList的物件名稱變成陣列
 let contentList = [plurkCntList, plurkBoxList, timelineList, controlList, dashboardLeftList, dashboardRightList, otherList];
 // menu列表
-let menuBlock = ['#th_block', '#fh_block', '#tt_block', '#tc_block', '#dhl_block', '#dhr_block', '#other_block'];
+let menuBlock = ['th', 'fh', 'tt', 'tc', 'dhl', 'dhr', 'other'];
 
+// ===== html生成部分 ============================================================ 
 //----- input跟label html生成
 // 各種input type的css
 function colorHtml(name, csstype, ph = '') {
@@ -440,7 +441,7 @@ function preHtmlBgc(key, item) {
   let preHtml = '';
   if (item === 'bgc' || item === 'c') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       ${colorHtml(key.name, item, '顏色')}
       ${rangeHtml(key.name, item, cssList[item].alpha, '透明')}
@@ -453,7 +454,7 @@ function preHtmlOpa(key, item) {
   let preHtml = '';
   if (item === 'opa') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       ${rangeHtml(key.name, item, cssList[item].value)}
     </div>
@@ -465,7 +466,7 @@ function preHtmlBdrs(key, item) {
   let preHtml = '';
   if (item === 'bdrs') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       ${rangeHtml(key.name, item, cssList[item].value)}
       <div class="row m-0">
@@ -484,7 +485,7 @@ function preHtmlBd(key, item) {
   let preHtml = '';
   if (item === 'bd') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       ${colorHtml(key.name, item, '顏色')}
       ${rangeHtml(key.name, item, cssList[item].value, '粗細')}
@@ -497,7 +498,7 @@ function preHtmlSha(key, item) {
   let preHtml = '';
   if (item === 'sha') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       ${colorHtml(key.name, item, '顏色')}
       ${rangeHtml(key.name, item, cssList[item].alpha, '透明')}
@@ -512,7 +513,7 @@ function preHtmlDp(key, item) {
   let preHtml = '';
   if (item === 'dp') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       ${checkHtml(key.name, item)}
     </div>
@@ -524,7 +525,7 @@ function preHtmlPosi(key, item) {
   let preHtml = '';
   if (item === 'posi') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       ${rangeHtml(key.name, item, cssList[item].top, '上方')}
       ${rangeHtml(key.name, item, cssList[item].left, '左方')}
@@ -537,7 +538,7 @@ function preHtmlSize(key, item) {
   let preHtml = '';
   if (item === 'size') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       <div class="row m-0">
         <input class="${key.name}_${item}" type="text" name="${item}" placeholder="寬度">
@@ -554,7 +555,7 @@ function preHtmlBgi(key, item) {
   let preHtml = '';
   if (item === 'dcbgi' || item === 'tlbgi') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       <div class="row m-0">
         <input class="${key.name}_${item}" type="text" name="${item}" placeholder="圖片網址">
@@ -568,7 +569,7 @@ function preHtmlOpen(key, item) {
   let preHtml = '';
   if (item === 'open') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       <div class="row m-0">
         <input id="${key.name}_${item}_1" class="radioBox" type="radio" name="${key.name}_${item}" value="no" checked>
@@ -587,7 +588,7 @@ function preHtmlFtposi(key, item) {
   let preHtml = '';
   if (item === 'ftposi') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       <div class="row m-0">
         <input id="${key.name}_${item}_1" class="radioBox" type="radio" name="${key.name}_${item}" value="no" checked>
@@ -604,7 +605,7 @@ function preHtmlToicon(key, item) {
   let preHtml = '';
   if (item === 'toicon') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       ${checkHtml(key.name, item)}
     </div>
@@ -616,7 +617,7 @@ function preHtmlCountposi(key, item) {
   let preHtml = '';
   if (item === 'countposi') {
     preHtml += `
-    <div class="input_box">
+    <div class="input_box ${item}">
       <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
       <div class="row m-0">
         <input id="${key.name}_${item}_1" class="radioBox" type="radio" name="${key.name}_${item}" value="right" checked disabled>
@@ -673,14 +674,14 @@ function blockHtmlCreate(obj, blockArr) {
 }
 
 //----- 建立子選單
-function subMenuCreate(obj, blockArr) {
+function subMenuCreate(obj, blockArr, menuArr) {
   let resultMenu = '';
   let preMenu = '';
   for (let key in obj) {
     preMenu += `<li class="item"><a href="#${obj[key].name}">${obj[key].title}</a></li>`;
   }
   if (obj !== otherList) {
-    resultMenu += `<ul class="menu_list"><li class="item"><a href="#review">預覽</a></li>${preMenu}</ul>`;
+    resultMenu += `<ul class="menu_list"><li class="item"><a href="#review_${menuArr}">預覽</a></li>${preMenu}</ul>`;
   } else {
     resultMenu += `<ul class="menu_list">${preMenu}</ul>`;
   }
@@ -690,10 +691,11 @@ function subMenuCreate(obj, blockArr) {
 
 //----- 巡迴menuBlock讓blockHtmlCreate跟subMenuCreate的內容加上各自的contentList
 contentList.forEach((item, i) => {
-  blockHtmlCreate(item, menuBlock[i]);
-  subMenuCreate(item, menuBlock[i]);
+  blockHtmlCreate(item, '#' + menuBlock[i] + '_block');
+  subMenuCreate(item, '#' + menuBlock[i] + '_block', menuBlock[i]);
 });
 
+// ===== 其他功能 ============================================================ 
 //----- 如果圖示化yes則讓未讀位置可操作
 // 抓到圖示化的checkbox
 let toIconCheckBox = document.querySelector('[name="control_filterstyle_toicon"]');
@@ -788,6 +790,7 @@ menuToggle.forEach((item, i) => {
   });
 });
 
+// ===== css生成部分 ============================================================ 
 //----- 色碼轉rgba
 function colorToRgba(h = '', alpha = '') {
   // .charAt(i) 在字串中第i個字是什麼
@@ -862,7 +865,7 @@ function preCssSha(item, inputBox) {
 function preCssDp(item, displayValue) {
   // 暫時儲存的變數
   let preCss = '';
-  if (item === 'dp' && displayValue.checked === true) {
+  if (item === 'dp' && displayValue.checked) {
     preCss += `  ${cssList[item].css}: none;
 `;
   }
@@ -992,7 +995,6 @@ function filterCountResult() {
 `;
     if (filterCountBox.value === 'top') {
       result = `${filterToIconCss}/* 讓頻道未讀數字出現在上面 */
-#updater {margin-left: 30px;}
 #filter_tab a .unread_generic {
   position: absolute;
   top: -14px;
@@ -1111,3 +1113,230 @@ selectBtn.addEventListener('click', function () {
 createBtn.addEventListener('click', function () {
   exportArea.value = cssCreate();
 });
+
+// ===== 預覽製作部分 ============================================================ 
+// 各個cssType對應review的前處理
+function preBgcReview(item, inputBox, reviewBox) {
+  if (item === 'bgc') {
+    inputBox.forEach((item) => {
+      // 當input ghange時發生動作
+      item.addEventListener('change', function () {
+        if (inputBox[0].value !== '') {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            // 改變預覽的背景顏色
+            item.style.backgroundColor = colorToRgba(inputBox[0].value, inputBox[2].value);
+          })
+        }
+      })
+    })
+  }
+}
+function preCReview(item, inputBox, reviewBox) {
+  if (item === 'c') {
+    inputBox.forEach((item) => {
+      // 當input ghange時發生動作
+      item.addEventListener('change', function () {
+        if (inputBox[0].value !== '') {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            // 改變預覽的文字顏色
+            item.style.color = colorToRgba(inputBox[0].value, inputBox[2].value);
+          })
+        }
+      })
+    })
+  }
+}
+function preOpaReview(item, inputBox, reviewBox) {
+  if (item === 'opa') {
+    inputBox.forEach((item) => {
+      // 當input ghange時發生動作
+      item.addEventListener('change', function () {
+        if (inputBox[0].value !== '') {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            // 改變預覽的透明度
+            item.style.opacity = inputBox[0].value;
+          })
+        }
+      })
+    })
+  }
+}
+function preBdrsReview(item, inputBox, reviewBox, radioBox) {
+  if (item === 'bdrs') {
+    inputBox.forEach((item) => {
+      // 當input ghange時發生動作
+      item.addEventListener('change', function () {
+        // 判斷圓角輸入框不為空，並且px被選中的狀態
+        if (inputBox[0].value !== '' && radioBox[0].checked) {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            item.style.borderRadius = inputBox[0].value + radioBox[0].value;
+          })
+        }
+        // 判斷圓角輸入框不為空，並且%被選中的狀態
+        if (inputBox[0].value !== '' && radioBox[1].checked) {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            item.style.borderRadius = inputBox[0].value + radioBox[1].value;
+          })
+        }
+      })
+    })
+  }
+}
+function preBdReview(item, inputBox, reviewBox) {
+  if (item === 'bd') {
+    inputBox.forEach((item) => {
+      // 當input ghange時發生動作
+      item.addEventListener('change', function () {
+        if (inputBox[0].value !== '' && inputBox[2].value !== '') {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            // 改變預覽的邊框
+            item.style.border = inputBox[2].value + 'px solid ' + inputBox[0].value;
+          })
+        }
+      })
+    })
+  }
+}
+function preShaReview(item, inputBox, reviewBox) {
+  if (item === 'sha') {
+    inputBox.forEach((item) => {
+      // 當input ghange時發生動作
+      item.addEventListener('change', function () {
+        if (inputBox[0].value !== '' && inputBox[4].value !== '' && inputBox[6].value !== '') {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            // 改變預覽的陰影
+            item.style.boxShadow = `${inputBox[4].value}px ${inputBox[4].value}px ${inputBox[6].value}px ${colorToRgba(inputBox[0].value, inputBox[2].value)}`;
+          })
+        }
+      })
+    })
+  }
+}
+function preDpReview(item, inputBox, reviewBox, displayBox) {
+  if (item === 'dp') {
+    inputBox.forEach((item) => {
+      // 當input ghange時發生動作
+      item.addEventListener('change', function () {
+        // 如果displayBox有被checked，那display: none，否則不用
+        if (displayBox.checked) {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            item.style.display = 'none';
+          })
+        } else {
+          // 巡迴要改變的預覽後並連動css
+          reviewBox.forEach((item) => {
+            item.style.display = '';
+          })
+        }
+      })
+    })
+  }
+}
+function preFilterOpenReview(item, inputBox, radioBox) {
+  let addListBox = document.querySelector('#review_tc')
+  if (item === 'open') {
+    inputBox.forEach((item) => {
+      item.addEventListener('change', function () {
+        if (radioBox[1].checked) {
+          addListBox.classList.remove('filter_open_right')
+          addListBox.classList.add('filter_open_top')
+        } else if (radioBox[2].checked) {
+          addListBox.classList.remove('filter_open_top')
+          addListBox.classList.add('filter_open_right')
+        } else {
+          addListBox.classList.remove('filter_open_top', 'filter_open_right')
+        }
+      })
+    })
+  }
+}
+function preFilterPosiReview(item, inputBox, radioBox) {
+  let addListBox = document.querySelector('#review_tc')
+  if (item === 'ftposi') {
+    inputBox.forEach((item) => {
+      item.addEventListener('change', function () {
+        if (radioBox[1].checked) {
+          addListBox.classList.add('filter_posi_right')
+        } else {
+          addListBox.classList.remove('filter_posi_right')
+        }
+      })
+    })
+  }
+}
+function preFilterCountReview(item, inputBox, radioBox) {
+  let addListBox = document.querySelector('#review_tc')
+  if (item === 'countposi') {
+    inputBox.forEach((item) => {
+      toIconCheckBox.addEventListener('change', function () {
+        if (toIconCheckBox.checked && radioBox[0].checked) {
+          addListBox.classList.remove('filter_count_left', 'filter_count_top')
+          addListBox.classList.add('filter_count_right')
+        } else if (toIconCheckBox.checked && radioBox[1].checked) {
+          addListBox.classList.remove('filter_count_right', 'filter_count_top')
+          addListBox.classList.add('filter_count_left')
+        } else if (toIconCheckBox.checked && radioBox[2].checked) {
+          addListBox.classList.remove('filter_count_right', 'filter_count_left')
+          addListBox.classList.add('filter_count_top')
+        } else {
+          addListBox.classList.remove('filter_count_right', 'filter_count_left', 'filter_count_top')
+        }
+      })
+      item.addEventListener('change', function () {
+        if (toIconCheckBox.checked && radioBox[0].checked) {
+          addListBox.classList.remove('filter_count_left', 'filter_count_top')
+          addListBox.classList.add('filter_count_right')
+        } else if (toIconCheckBox.checked && radioBox[1].checked) {
+          addListBox.classList.remove('filter_count_right', 'filter_count_top')
+          addListBox.classList.add('filter_count_left')
+        } else if (toIconCheckBox.checked && radioBox[2].checked) {
+          addListBox.classList.remove('filter_count_right', 'filter_count_left')
+          addListBox.classList.add('filter_count_top')
+        } else {
+          addListBox.classList.remove('filter_count_right', 'filter_count_left', 'filter_count_top')
+        }
+      })
+    })
+  }
+}
+// 巡迴各物件並判斷csstype類型後，依類型監聽input，再把產生的值傳進review進行連動
+function preCssReview(obj, menuArr) {
+  for (let key in obj) {
+    // 找csstype的部分
+    let cssType = obj[key].csstype;
+    // 抓到review
+    let reviewBox = document.querySelectorAll('#review_' + menuArr + ' ' + obj[key].subtitle)
+    // 巡迴cssType
+    cssType.forEach((item ,i) => {
+      // 抓到各cssType的inptu
+      let inputBox = document.querySelectorAll('#' + obj[key].name + ' .' + item + ' input');
+      // 抓圓角單位
+      let radioBox = document.querySelectorAll('[name="' + obj[key].name + '_' + item + '"]')
+      // 抓隱藏 checked
+      let displayBox = document.querySelector('[name="' + obj[key].name + '_' + item + '"]');
+      // 加入各個cssType對應review的前處理
+      preBgcReview(item, inputBox, reviewBox)
+      preCReview(item, inputBox, reviewBox)
+      preOpaReview(item, inputBox, reviewBox)
+      preBdrsReview(item, inputBox, reviewBox, radioBox)
+      preBdReview(item, inputBox, reviewBox)
+      preShaReview(item, inputBox, reviewBox)
+      preDpReview(item, inputBox, reviewBox, displayBox)
+      preFilterOpenReview(item, inputBox, radioBox)
+      preFilterPosiReview(item, inputBox, radioBox)
+      preFilterCountReview(item, inputBox, radioBox)
+    })
+  }
+}
+
+contentList.forEach((item, i) => {
+  preCssReview(item, menuBlock[i])
+})
