@@ -31,7 +31,7 @@ let cssList = {
   sha: {
     css: 'box-shadow',
     title: '陰影',
-    value: [0, 10, 1],
+    value: [-10, 10, 1],
     blur: [0, 20, 1],
     alpha: [0, 1, 0.1],
   },
@@ -125,13 +125,13 @@ let plurkCntList = {
     csstype: ['opa', 'bdrs', 'sha'],
     hidden: false,
   },
-  hashtag: {
-    title: '噗的Hashtag',
-    subtitle: '.timeline-cnt .plurk_cnt a.hashtag',
-    name: 'plurkcnt_hashtag',
-    csstype: ['bgc', 'c', 'bdrs', 'bd'],
-    hidden: false,
-  },
+  // hashtag: {
+  //   title: '噗的Hashtag',
+  //   subtitle: '.timeline-cnt .plurk_cnt a.hashtag',
+  //   name: 'plurkcnt_hashtag',
+  //   csstype: ['c'],
+  //   hidden: false,
+  // },
   piclink: {
     title: '噗的有圖連結',
     subtitle: '.timeline-cnt .plurk_cnt a.meta',
@@ -144,6 +144,34 @@ let plurkCntList = {
     subtitle: '.timeline-cnt .plurk_cnt a.ex_link',
     name: 'plurkcnt_link',
     csstype: ['c'],
+    hidden: false,
+  },
+  plurktime: {
+    title: '噗的時間顯示',
+    subtitle: '.timeline-timeshow',
+    name: 'timeline_plurktime',
+    csstype: ['bgc', 'opa', 'bdrs', 'bd', 'sha'],
+    hidden: false,
+  },
+  time: {
+    title: '時間軸的時間',
+    subtitle: '.bottom_start',
+    name: 'timeline_time',
+    csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
+    hidden: false,
+  },
+  line: {
+    title: '時間軸的線',
+    subtitle: '#bottom_line',
+    name: 'timeline_line',
+    csstype: ['bgc', 'opa'],
+    hidden: false,
+  },
+  timelinebg: {
+    title: '時間軸生物',
+    subtitle: '.timeline-bg',
+    name: 'timeline_bg',
+    csstype: ['tlbgi'],
     hidden: false,
   },
 };
@@ -174,29 +202,6 @@ let plurkBoxList = {
     subtitle: '.plurk_box .mini_form',
     name: 'plurkbox_form',
     csstype: ['bgc'],
-    hidden: false,
-  },
-};
-let timelineList = {
-  plurktime: {
-    title: '噗的時間顯示',
-    subtitle: '.timeline-timeshow',
-    name: 'timeline_plurktime',
-    csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
-    hidden: false,
-  },
-  time: {
-    title: '時間軸的時間',
-    subtitle: '.bottom_start',
-    name: 'timeline_time',
-    csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
-    hidden: false,
-  },
-  line: {
-    title: '時間軸的線',
-    subtitle: '#bottom_line',
-    name: 'timeline_line',
-    csstype: ['bgc', 'opa'],
     hidden: false,
   },
 };
@@ -277,14 +282,14 @@ let dashboardLeftList = {
     title: '個人暱稱',
     subtitle: '#plurk-dashboard .dash-group-left #dash-profile #full_name .display_name',
     name: 'profile_name',
-    csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd'],
+    csstype: ['c', 'opa'],
     hidden: false,
   },
   private: {
     title: '私噗按鈕',
     subtitle: '.friend_man.private_plurk',
     name: 'profile_private',
-    csstype: ['dp'],
+    csstype: ['dp', 'bgc', 'c', 'opa', 'bdrs'],
     hidden: false,
   },
 };
@@ -335,7 +340,7 @@ let dashboardRightList = {
     title: '好友粉絲頭像整體',
     subtitle: '.friend_holder img',
     name: 'friends_img',
-    csstype: ['bgc', 'opa', 'bdrs', 'sha'],
+    csstype: ['opa', 'bdrs', 'sha'],
     hidden: false,
   },
   friendbtn: {
@@ -396,20 +401,13 @@ let otherList = {
     csstype: ['dp'],
     hidden: false,
   },
-  timelinebg: {
-    title: '時間軸生物',
-    subtitle: '.timeline-bg',
-    name: 'timeline_bg',
-    csstype: ['tlbgi'],
-    hidden: false,
-  },
 };
 // contentList的物件名稱變成陣列
-let contentList = [plurkCntList, plurkBoxList, timelineList, controlList, dashboardLeftList, dashboardRightList, otherList];
+let contentList = [plurkCntList, plurkBoxList, controlList, dashboardLeftList, dashboardRightList, otherList];
 // menu列表
-let menuBlock = ['th', 'fh', 'tt', 'tc', 'dhl', 'dhr', 'other'];
+let menuBlock = ['th', 'fh', 'tc', 'dhl', 'dhr', 'other'];
 
-// ===== html生成部分 ============================================================ 
+// ===== html生成部分 ============================================================
 //----- input跟label html生成
 // 各種input type的css
 function colorHtml(name, csstype, ph = '') {
@@ -695,7 +693,7 @@ contentList.forEach((item, i) => {
   subMenuCreate(item, '#' + menuBlock[i] + '_block', menuBlock[i]);
 });
 
-// ===== 其他功能 ============================================================ 
+// ===== 其他功能 ============================================================
 //----- 如果圖示化yes則讓未讀位置可操作
 // 抓到圖示化的checkbox
 let toIconCheckBox = document.querySelector('[name="control_filterstyle_toicon"]');
@@ -783,14 +781,14 @@ menuToggle.forEach((item, i) => {
     currentActive.className = currentActive.className.replace(' active', '');
     this.className += ' active';
     // 先刪除全部的display class，再加上現在需要的display
-    let currentDisplay = document.querySelector('.main').querySelector('.display');
+    let currentDisplay = document.querySelector('.main > .display');
     currentDisplay.className = currentDisplay.className.replace(' display', '');
-    let plusDisplayBlock = document.querySelector('.main').querySelectorAll('.control');
+    let plusDisplayBlock = document.querySelectorAll('.main > .control');
     plusDisplayBlock[i].className += ' display';
   });
 });
 
-// ===== css生成部分 ============================================================ 
+// ===== css生成部分 ============================================================
 //----- 色碼轉rgba
 function colorToRgba(h = '', alpha = '') {
   // .charAt(i) 在字串中第i個字是什麼
@@ -816,7 +814,25 @@ let shaStyle = (inputBox) => `${inputBox[2].value}px ${inputBox[2].value}px ${in
 function preCssBgc(item, inputBox) {
   // 暫時儲存的變數
   let preCss = '';
-  if (item === 'bgc' || item === 'c') {
+  if (item === 'bgc') {
+    if (inputBox[0].value !== '') {
+      preCss += `  ${cssList[item].css}: ${bgcStyle(inputBox)};
+`;
+    }
+  }
+  return preCss;
+}
+function preCssC(item, inputBox, cssSubtitle) {
+  // 判斷什麼屬性要用 !important
+  let impDecide = cssSubtitle === '#updater .unread_generic' || cssSubtitle === '#filter_tab a .unread_generic' || cssSubtitle === '.friend_man.private_plurk';
+  // 暫時儲存的變數
+  let preCss = '';
+  if (item === 'c' && impDecide) {
+    if (inputBox[0].value !== '') {
+      preCss += `  ${cssList[item].css}: ${bgcStyle(inputBox)} !important;
+`;
+    }
+  } else if (item === 'c') {
     if (inputBox[0].value !== '') {
       preCss += `  ${cssList[item].css}: ${bgcStyle(inputBox)};
 `;
@@ -835,9 +851,9 @@ function preCssOpa(item, inputBox) {
 }
 function preCssBdrs(item, inputBox, radioValue) {
   // 暫時儲存的變數
-  let preCss = '';
+  let preCss = ''; 
   if (item === 'bdrs' && inputBox[0].value !== '') {
-    preCss += `  ${cssList[item].css}: ${bdrsStyle(inputBox, radioValue)};
+      preCss += `  ${cssList[item].css}: ${bdrsStyle(inputBox, radioValue)};
 `;
   }
   return preCss;
@@ -985,6 +1001,7 @@ function filterCountResult() {
   position: absolute;
   top: 0;
   left: 30px;
+  width: 30px;
   height: 25px;
   line-height: 25px;
   margin-top: 6px;
@@ -1034,6 +1051,8 @@ function preCssCreate(obj) {
   for (let key in obj) {
     // 找csstype的部分
     let cssType = obj[key].csstype;
+    // 找subtitle的部分
+    let cssSubtitle = obj[key].subtitle;
     // 創一個變數裝巡迴css後產出的內容
     let preCss = '';
     cssType.forEach((item) => {
@@ -1045,6 +1064,7 @@ function preCssCreate(obj) {
       let displayValue = document.querySelector('[name="' + obj[key].name + '_dp"]');
       // 加上各個preCss
       preCss += preCssBgc(item, inputBox);
+      preCss += preCssC(item, inputBox, cssSubtitle);
       preCss += preCssOpa(item, inputBox);
       preCss += preCssBdrs(item, inputBox, radioValue);
       preCss += preCssBd(item, inputBox);
@@ -1082,7 +1102,8 @@ function cssCreate() {
   // 加上作者資訊跟result
   if (result !== '' || filterAllCss !== '') {
     info = `/**======= Create by Plurk CSS Generator =======**/
-/*=====作者噗浪 http://www.plurk.com/hoshikata=====*/
+/**== https://hoshikata.github.io/PlurkCSSGenerator ==**/
+/*==== 作者噗浪 https://www.plurk.com/hoshikata ====*/
 
 ${filterAllCss}${result}`;
   }
@@ -1114,109 +1135,156 @@ createBtn.addEventListener('click', function () {
   exportArea.value = cssCreate();
 });
 
-// ===== 預覽製作部分 ============================================================ 
+// ===== 預覽製作部分 ============================================================
 // 各個cssType對應review的前處理
 function preBgcReview(item, inputBox, reviewBox) {
   if (item === 'bgc') {
     inputBox.forEach((item) => {
       // 當input ghange時發生動作
-      item.addEventListener('change', function () {
+      item.addEventListener('input', function () {
+        // 判斷狀況後巡迴要改變的預覽後並連動css
+        // 改變預覽的背景顏色
         if (inputBox[0].value !== '') {
-          // 巡迴要改變的預覽後並連動css
           reviewBox.forEach((item) => {
-            // 改變預覽的背景顏色
-            item.style.backgroundColor = colorToRgba(inputBox[0].value, inputBox[2].value);
-          })
+            item.style.setProperty('background-color', colorToRgba(inputBox[0].value, inputBox[2].value));
+          });
+        } else {
+          reviewBox.forEach((item) => {
+            item.style.setProperty('background-color', '');
+          });
         }
-      })
-    })
+      });
+    });
   }
 }
-function preCReview(item, inputBox, reviewBox) {
+function preCReview(item, inputBox, reviewBox, cssSubtitle) {
+  // 判斷什麼屬性要用 !important
+  let impDecide = cssSubtitle === '#updater .unread_generic' || cssSubtitle === '#filter_tab a .unread_generic' || cssSubtitle === '.friend_man.private_plurk';
   if (item === 'c') {
     inputBox.forEach((item) => {
       // 當input ghange時發生動作
-      item.addEventListener('change', function () {
-        if (inputBox[0].value !== '') {
-          // 巡迴要改變的預覽後並連動css
+      item.addEventListener('input', function () {
+        // 判斷狀況後巡迴要改變的預覽後並連動css
+        // 改變預覽的文字顏色
+        if (inputBox[0].value !== '' && impDecide) {
           reviewBox.forEach((item) => {
-            // 改變預覽的文字顏色
-            item.style.color = colorToRgba(inputBox[0].value, inputBox[2].value);
-          })
+            console.log(cssSubtitle);
+            console.log(colorToRgba(inputBox[0].value, inputBox[2].value) + ' !important');
+            item.style.setProperty('color', colorToRgba(inputBox[0].value, inputBox[2].value), 'important');
+          });
+        } else if (inputBox[0].value !== '') {
+          reviewBox.forEach((item) => {
+            item.style.setProperty('color', colorToRgba(inputBox[0].value, inputBox[2].value));
+          });
+        } else {
+          reviewBox.forEach((item) => {
+            item.style.setProperty('color', '');
+          });
         }
-      })
-    })
+      });
+    });
   }
 }
 function preOpaReview(item, inputBox, reviewBox) {
   if (item === 'opa') {
     inputBox.forEach((item) => {
       // 當input ghange時發生動作
-      item.addEventListener('change', function () {
+      item.addEventListener('input', function () {
+        // 判斷狀況後巡迴要改變的預覽後並連動css
+        // 改變預覽的透明度
         if (inputBox[0].value !== '') {
-          // 巡迴要改變的預覽後並連動css
           reviewBox.forEach((item) => {
-            // 改變預覽的透明度
-            item.style.opacity = inputBox[0].value;
-          })
+            item.style.setProperty('opacity', inputBox[0].value);
+          });
+        } else {
+          reviewBox.forEach((item) => {
+            item.style.setProperty('opacity', '');
+          });
         }
-      })
-    })
+      });
+    });
   }
 }
-function preBdrsReview(item, inputBox, reviewBox, radioBox) {
+function preBdrsReview(item, inputBox, reviewBox, radioBox, cssSubtitle) {
+  // 判斷什麼屬性要用 overflow: hidden
+  let ofhDecide = cssSubtitle === '.timeline-cnt .p_img' || cssSubtitle === '#form_holder';
   if (item === 'bdrs') {
     inputBox.forEach((item) => {
       // 當input ghange時發生動作
-      item.addEventListener('change', function () {
-        // 判斷圓角輸入框不為空，並且px被選中的狀態
-        if (inputBox[0].value !== '' && radioBox[0].checked) {
-          // 巡迴要改變的預覽後並連動css
+      item.addEventListener('input', function () {
+        // 巡迴要改變的預覽後並連動css
+        // 先判斷哪些要加上impoertant
+        // 判斷圓角輸入框不為空，px或%被選中
+        if (ofhDecide) {
+          if (inputBox[0].value !== '' && radioBox[0].checked) {
+            reviewBox.forEach((item) => {
+              item.style.setProperty('border-radius', inputBox[0].value + radioBox[0].value);
+              item.style.setProperty('overflow', 'hidden');
+            });
+          } else if (inputBox[0].value !== '' && radioBox[1].checked) {
+            reviewBox.forEach((item) => {
+              item.style.setProperty('border-radius', inputBox[0].value + radioBox[1].value);
+              item.style.setProperty('overflow', 'hidden');
+            });
+          }
+        } else if (ofhDecide === false) {
+          if (inputBox[0].value !== '' && radioBox[0].checked) {
+            reviewBox.forEach((item) => {
+              item.style.setProperty('border-radius', inputBox[0].value + radioBox[0].value);
+            });
+          } else if (inputBox[0].value !== '' && radioBox[1].checked) {
+            reviewBox.forEach((item) => {
+              item.style.setProperty('border-radius', inputBox[0].value + radioBox[1].value);
+            });
+          }
+        } else {
           reviewBox.forEach((item) => {
-            item.style.borderRadius = inputBox[0].value + radioBox[0].value;
-          })
+            item.style.setProperty('border-radius', '');
+          });
         }
-        // 判斷圓角輸入框不為空，並且%被選中的狀態
-        if (inputBox[0].value !== '' && radioBox[1].checked) {
-          // 巡迴要改變的預覽後並連動css
-          reviewBox.forEach((item) => {
-            item.style.borderRadius = inputBox[0].value + radioBox[1].value;
-          })
-        }
-      })
-    })
+      });
+    });
   }
 }
+// 判斷狀況後 setProperty
 function preBdReview(item, inputBox, reviewBox) {
   if (item === 'bd') {
     inputBox.forEach((item) => {
       // 當input ghange時發生動作
-      item.addEventListener('change', function () {
+      item.addEventListener('input', function () {
+        // 判斷狀況後巡迴要改變的預覽後並連動css
+        // 改變預覽的邊框
         if (inputBox[0].value !== '' && inputBox[2].value !== '') {
-          // 巡迴要改變的預覽後並連動css
           reviewBox.forEach((item) => {
-            // 改變預覽的邊框
-            item.style.border = inputBox[2].value + 'px solid ' + inputBox[0].value;
-          })
+            item.style.setProperty('border', inputBox[2].value + 'px solid ' + inputBox[0].value);
+          });
+        } else {
+          reviewBox.forEach((item) => {
+            item.style.setProperty('border', '');
+          });
         }
-      })
-    })
+      });
+    });
   }
 }
 function preShaReview(item, inputBox, reviewBox) {
   if (item === 'sha') {
     inputBox.forEach((item) => {
       // 當input ghange時發生動作
-      item.addEventListener('change', function () {
+      item.addEventListener('input', function () {
+        // 判斷狀況後巡迴要改變的預覽後並連動css
+        // 改變預覽的陰影
         if (inputBox[0].value !== '' && inputBox[4].value !== '' && inputBox[6].value !== '') {
-          // 巡迴要改變的預覽後並連動css
           reviewBox.forEach((item) => {
-            // 改變預覽的陰影
-            item.style.boxShadow = `${inputBox[4].value}px ${inputBox[4].value}px ${inputBox[6].value}px ${colorToRgba(inputBox[0].value, inputBox[2].value)}`;
-          })
+            item.style.setProperty('box-shadow', `${inputBox[4].value}px ${inputBox[4].value}px ${inputBox[6].value}px ${colorToRgba(inputBox[0].value, inputBox[2].value)}`);
+          });
+        } else {
+          reviewBox.forEach((item) => {
+            item.style.setProperty('box-shadow', '');
+          });
         }
-      })
-    })
+      });
+    });
   }
 }
 function preDpReview(item, inputBox, reviewBox, displayBox) {
@@ -1225,86 +1293,109 @@ function preDpReview(item, inputBox, reviewBox, displayBox) {
       // 當input ghange時發生動作
       item.addEventListener('change', function () {
         // 如果displayBox有被checked，那display: none，否則不用
+        // 巡迴要改變的預覽後並連動css
         if (displayBox.checked) {
-          // 巡迴要改變的預覽後並連動css
           reviewBox.forEach((item) => {
-            item.style.display = 'none';
-          })
+            item.style.setProperty('display', 'none');
+          });
         } else {
-          // 巡迴要改變的預覽後並連動css
           reviewBox.forEach((item) => {
-            item.style.display = '';
-          })
+            item.style.setProperty('display', '');
+          });
         }
-      })
-    })
+      });
+    });
+  }
+}
+function preTlbgiReview(item, inputBox, reviewBox) {
+  if (item === 'tlbgi') {
+    inputBox.forEach((item) => {
+      // 當input ghange時發生動作
+      item.addEventListener('input', function () {
+        // 判斷狀況後巡迴要改變的預覽後並連動css
+        // 改變預覽的背景顏色
+        if (inputBox[0].value !== '') {
+          reviewBox.forEach((item) => {
+            item.style.setProperty('background-image', 'url(' + inputBox[0].value + ')');
+            item.style.setProperty('background-repeat', 'repeat-x');
+            item.style.setProperty('background-position', 'bottom');
+          });
+        } else {
+          reviewBox.forEach((item) => {
+            item.style.setProperty('background-image', '');
+            item.style.setProperty('background-repeat', '');
+            item.style.setProperty('background-position', '');
+          });
+        }
+      });
+    });
   }
 }
 function preFilterOpenReview(item, inputBox, radioBox) {
-  let addListBox = document.querySelector('#review_tc')
+  let addListBox = document.querySelector('#review_tc');
   if (item === 'open') {
     inputBox.forEach((item) => {
       item.addEventListener('change', function () {
         if (radioBox[1].checked) {
-          addListBox.classList.remove('filter_open_right')
-          addListBox.classList.add('filter_open_top')
+          addListBox.classList.remove('filter_open_right');
+          addListBox.classList.add('filter_open_top');
         } else if (radioBox[2].checked) {
-          addListBox.classList.remove('filter_open_top')
-          addListBox.classList.add('filter_open_right')
+          addListBox.classList.remove('filter_open_top');
+          addListBox.classList.add('filter_open_right');
         } else {
-          addListBox.classList.remove('filter_open_top', 'filter_open_right')
+          addListBox.classList.remove('filter_open_top', 'filter_open_right');
         }
-      })
-    })
+      });
+    });
   }
 }
 function preFilterPosiReview(item, inputBox, radioBox) {
-  let addListBox = document.querySelector('#review_tc')
+  let addListBox = document.querySelector('#review_tc');
   if (item === 'ftposi') {
     inputBox.forEach((item) => {
       item.addEventListener('change', function () {
         if (radioBox[1].checked) {
-          addListBox.classList.add('filter_posi_right')
+          addListBox.classList.add('filter_posi_right');
         } else {
-          addListBox.classList.remove('filter_posi_right')
+          addListBox.classList.remove('filter_posi_right');
         }
-      })
-    })
+      });
+    });
   }
 }
 function preFilterCountReview(item, inputBox, radioBox) {
-  let addListBox = document.querySelector('#review_tc')
+  let addListBox = document.querySelector('#review_tc');
   if (item === 'countposi') {
     inputBox.forEach((item) => {
       toIconCheckBox.addEventListener('change', function () {
         if (toIconCheckBox.checked && radioBox[0].checked) {
-          addListBox.classList.remove('filter_count_left', 'filter_count_top')
-          addListBox.classList.add('filter_count_right')
+          addListBox.classList.remove('filter_count_left', 'filter_count_top');
+          addListBox.classList.add('filter_count_right');
         } else if (toIconCheckBox.checked && radioBox[1].checked) {
-          addListBox.classList.remove('filter_count_right', 'filter_count_top')
-          addListBox.classList.add('filter_count_left')
+          addListBox.classList.remove('filter_count_right', 'filter_count_top');
+          addListBox.classList.add('filter_count_left');
         } else if (toIconCheckBox.checked && radioBox[2].checked) {
-          addListBox.classList.remove('filter_count_right', 'filter_count_left')
-          addListBox.classList.add('filter_count_top')
+          addListBox.classList.remove('filter_count_right', 'filter_count_left');
+          addListBox.classList.add('filter_count_top');
         } else {
-          addListBox.classList.remove('filter_count_right', 'filter_count_left', 'filter_count_top')
+          addListBox.classList.remove('filter_count_right', 'filter_count_left', 'filter_count_top');
         }
-      })
+      });
       item.addEventListener('change', function () {
         if (toIconCheckBox.checked && radioBox[0].checked) {
-          addListBox.classList.remove('filter_count_left', 'filter_count_top')
-          addListBox.classList.add('filter_count_right')
+          addListBox.classList.remove('filter_count_left', 'filter_count_top');
+          addListBox.classList.add('filter_count_right');
         } else if (toIconCheckBox.checked && radioBox[1].checked) {
-          addListBox.classList.remove('filter_count_right', 'filter_count_top')
-          addListBox.classList.add('filter_count_left')
+          addListBox.classList.remove('filter_count_right', 'filter_count_top');
+          addListBox.classList.add('filter_count_left');
         } else if (toIconCheckBox.checked && radioBox[2].checked) {
-          addListBox.classList.remove('filter_count_right', 'filter_count_left')
-          addListBox.classList.add('filter_count_top')
+          addListBox.classList.remove('filter_count_right', 'filter_count_left');
+          addListBox.classList.add('filter_count_top');
         } else {
-          addListBox.classList.remove('filter_count_right', 'filter_count_left', 'filter_count_top')
+          addListBox.classList.remove('filter_count_right', 'filter_count_left', 'filter_count_top');
         }
-      })
-    })
+      });
+    });
   }
 }
 // 巡迴各物件並判斷csstype類型後，依類型監聽input，再把產生的值傳進review進行連動
@@ -1312,31 +1403,34 @@ function preCssReview(obj, menuArr) {
   for (let key in obj) {
     // 找csstype的部分
     let cssType = obj[key].csstype;
+    // 找subtitle的部分
+    let cssSubtitle = obj[key].subtitle;
     // 抓到review
-    let reviewBox = document.querySelectorAll('#review_' + menuArr + ' ' + obj[key].subtitle)
+    let reviewBox = document.querySelectorAll('#review_' + menuArr + ' ' + obj[key].subtitle);
     // 巡迴cssType
-    cssType.forEach((item ,i) => {
+    cssType.forEach((item, i) => {
       // 抓到各cssType的inptu
       let inputBox = document.querySelectorAll('#' + obj[key].name + ' .' + item + ' input');
       // 抓圓角單位
-      let radioBox = document.querySelectorAll('[name="' + obj[key].name + '_' + item + '"]')
+      let radioBox = document.querySelectorAll('[name="' + obj[key].name + '_' + item + '"]');
       // 抓隱藏 checked
       let displayBox = document.querySelector('[name="' + obj[key].name + '_' + item + '"]');
       // 加入各個cssType對應review的前處理
-      preBgcReview(item, inputBox, reviewBox)
-      preCReview(item, inputBox, reviewBox)
-      preOpaReview(item, inputBox, reviewBox)
-      preBdrsReview(item, inputBox, reviewBox, radioBox)
-      preBdReview(item, inputBox, reviewBox)
-      preShaReview(item, inputBox, reviewBox)
-      preDpReview(item, inputBox, reviewBox, displayBox)
-      preFilterOpenReview(item, inputBox, radioBox)
-      preFilterPosiReview(item, inputBox, radioBox)
-      preFilterCountReview(item, inputBox, radioBox)
-    })
+      preBgcReview(item, inputBox, reviewBox);
+      preCReview(item, inputBox, reviewBox, cssSubtitle);
+      preOpaReview(item, inputBox, reviewBox);
+      preBdrsReview(item, inputBox, reviewBox, radioBox, cssSubtitle);
+      preBdReview(item, inputBox, reviewBox);
+      preShaReview(item, inputBox, reviewBox);
+      preDpReview(item, inputBox, reviewBox, displayBox);
+      preTlbgiReview(item, inputBox, reviewBox)
+      preFilterOpenReview(item, inputBox, radioBox);
+      preFilterPosiReview(item, inputBox, radioBox);
+      preFilterCountReview(item, inputBox, radioBox);
+    });
   }
 }
 
 contentList.forEach((item, i) => {
-  preCssReview(item, menuBlock[i])
-})
+  preCssReview(item, menuBlock[i]);
+});
