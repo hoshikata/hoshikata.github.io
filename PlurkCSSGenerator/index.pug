@@ -44,9 +44,14 @@ html(lang="en")
           .menu.menu_sub
           //- 預覽區
           #review_th.review
+            .review_background
+              .row.m-0
+                .bgc_selector
+                  input#selector(type="color", name="selector")
+                  label.selector(for="selector") 預覽背景顏色選擇
             .container
               // 河道
-              #timeline_holder.timeline-holder(style='height: 438px;')
+              #timeline_holder.timeline-holder(style='height: 350px;')
                 // 河道的噗
                 #timeline_cnt.timeline-cnt(style='padding-bottom: 0px;')
                   .block_cnt(style='height: 100% !important; width: 100% !important; left: 0px; transition: left 90ms linear 0s;')
@@ -190,7 +195,7 @@ html(lang="en")
                 // 時間軸
                 #timeline_bg.timeline-bg(style='padding-bottom: 0px;')
                   #bottom_line.bottom-line(style='display: block;')
-                  .block_bg(style='height: 100% !important; width: 5914px !important; left: 0px; transition: left 90ms linear 0s;')
+                  .block_bg(style='height: 100% !important; width: 100% !important; left: 0px; transition: left 90ms linear 0s;')
                     .bottom_start.day_start.div_bottom(style='left: 15px;') 今天
                     .bottom_start.time_start.div_bottom(style='left: 200px;') 20:00
                 // 噗下時間
@@ -201,7 +206,73 @@ html(lang="en")
         #fh_block.control
           .menu.menu_sub
           #review_fh.review
+            .review_background
+              .row.m-0
+                .bgc_selector
+                  input#selector(type="color", name="selector")
+                  label.selector(for="selector") 預覽背景顏色選擇
             .container.clearfix
+              // 噗內回應
+              #form_holder.plurk_box(style='top: 0px; left: 50px; width: 460px;')
+                // 最上方資訊列 
+                .response_box(style='max-height: 200px;')
+                  .response_info.clearfix
+                    .favorite_count.button.small-button 1 喜歡
+                    .replurk_count.button.small-button 1 轉噗
+                    .bookmark_info.button.small-button 書籤
+                    .private_info.pif-privacy.button.small-button 所有朋友
+                    .response-status
+                      span.response-count.pif-message 2 則回應
+                      .response-only-owner.button.small-button(style='display: inline-block;') 只顯示原作者的回應
+                  // 回應內容
+                  .list
+                    .plurk.cboxAnchor.response.highlight_owner
+                      table
+                        tbody
+                          tr
+                            td
+                              .plurk_cnt
+                                table
+                                  tbody
+                                    tr.tr_cnt
+                                      td.td_qual
+                                        span
+                                          a.name(href='javascript:;') 噗主
+                                          span
+                                      td.td_cnt
+                                        .text_holder 噗主留言
+                    .plurk.cboxAnchor.response
+                      table
+                        tbody
+                          tr
+                            td
+                              .plurk_cnt
+                                table
+                                  tbody
+                                    tr.tr_cnt
+                                      td.td_qual
+                                        span
+                                          a.name(href='javascript:;') 暱稱
+                                          span
+                                      td.td_cnt
+                                        .text_holder 留言
+                // 打字區
+                .poster_holder(style='display: block;')
+                  .mini_form
+                    .plurkForm.mini-mode
+                      .input_holder
+                        .qual_holder(style='float: left;')
+                          .dd_img.m_qualifier.q_freestyle
+                            span(style='display: none;')
+                            i.pif-dropdown
+                        .textarea_holder
+                          textarea#input_small.content(style='height: 19px; color: black;')
+                      ul.icons_holder
+                        li.cmp_emoticon_mini_off.pif-emoticon
+                        li.cmp_media_mini_off.pif-media
+                      .plurk_schedule
+                      .plurk_to
+                      .char_updater 按 Enter 送出
           .enter_block
         //- #tt_block.control
           .menu.menu_sub
@@ -211,6 +282,11 @@ html(lang="en")
         #tc_block.control
           .menu.menu_sub
           #review_tc.review
+            .review_background
+              .row.m-0
+                .bgc_selector
+                  input#selector(type="color", name="selector")
+                  label.selector(for="selector") 預覽背景顏色選擇
             .container.clearfix
               // 控制列
               .timeline_control
@@ -269,6 +345,11 @@ html(lang="en")
         #dhl_block.control
           .menu.menu_sub
           #review_dhl.review_dh.review
+            .review_background
+              .row.m-0
+                .bgc_selector
+                  input#selector(type="color", name="selector")
+                  label.selector(for="selector") 預覽背景顏色選擇
             .container.clearfix
               // 主控台
               #dashboard_holder
@@ -427,6 +508,11 @@ html(lang="en")
         #dhr_block.control
           .menu.menu_sub
           #review_dhr.review_dh.review
+            .review_background
+              .row.m-0
+                .bgc_selector
+                  input#selector(type="color", name="selector")
+                  label.selector(for="selector") 預覽背景顏色選擇
             .container.clearfix
               // 主控台
               #dashboard_holder
@@ -594,4 +680,3 @@ html(lang="en")
           .container
             textarea#export_area.export(name="export")
     script(src="script/script.js")
-

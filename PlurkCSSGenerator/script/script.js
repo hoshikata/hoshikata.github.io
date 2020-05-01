@@ -167,21 +167,42 @@ let plurkCntList = {
     csstype: ['bgc', 'opa'],
     hidden: false,
   },
-  timelinebg: {
-    title: '時間軸生物',
-    subtitle: '.timeline-bg',
-    name: 'timeline_bg',
-    csstype: ['tlbgi'],
-    hidden: false,
-  },
 };
 let plurkBoxList = {
   holder: {
     title: '噗內整體調整',
     subtitle: '#form_holder',
     name: 'plurkbox_holder',
-    csstype: ['bgc', 'opa', 'bdrs', 'bd', 'sha'],
+    csstype: ['opa', 'bdrs', 'bd', 'sha'],
     hidden: true,
+  },
+  favorite: {
+    title: '噗內喜歡數',
+    subtitle: '.favorite_count',
+    name: 'plurkbox_favorite',
+    csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
+    hidden: false,
+  },
+  replurk: {
+    title: '噗內轉噗數',
+    subtitle: '.replurk_count',
+    name: 'plurkbox_replurk',
+    csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
+    hidden: false,
+  },
+  bookmark: {
+    title: '噗內書籤標籤',
+    subtitle: '.bookmark_bookmark',
+    name: 'plurkbox_info',
+    csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
+    hidden: false,
+  },
+  private: {
+    title: '噗內私噗標籤',
+    subtitle: '.private_private',
+    name: 'plurkbox_info',
+    csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
+    hidden: false,
   },
   resbox: {
     title: '噗內回應區',
@@ -191,9 +212,16 @@ let plurkBoxList = {
     hidden: false,
   },
   reslist: {
-    title: '噗內回應內容',
+    title: '回應內容',
     subtitle: '.response_box .list .plurk_cnt',
     name: 'plurkbox_reslist',
+    csstype: ['bgc', 'c', 'bdrs', 'bd'],
+    hidden: false,
+  },
+  ownlist: {
+    title: '噗主回應內容',
+    subtitle: '.response_box .list .highlight_owner .plurk_cnt',
+    name: 'plurkbox_ownlist',
     csstype: ['bgc', 'c', 'bdrs', 'bd'],
     hidden: false,
   },
@@ -399,6 +427,13 @@ let otherList = {
     subtitle: '#dynamic_logo #creature',
     name: 'dynamic_creature',
     csstype: ['dp'],
+    hidden: false,
+  },
+  timelinebg: {
+    title: '時間軸生物',
+    subtitle: '.timeline-bg',
+    name: 'timeline_bg',
+    csstype: ['tlbgi'],
     hidden: false,
   },
 };
@@ -788,6 +823,20 @@ menuToggle.forEach((item, i) => {
   });
 });
 
+//----- 改變預覽視窗的背景顏色
+function changeReviewBgc(menuArr) {
+  // 抓到input
+  let bgcSelector = document.querySelector('#review_' + menuArr + ' .review_background #selector');
+  // 抓到預覽背景
+  let inputBgcBlock = document.querySelector('#review_' + menuArr + ' > .container');
+  bgcSelector.addEventListener('input', function () {
+    inputBgcBlock.style.setProperty('background-color', bgcSelector.value);
+  });
+}
+menuBlock.forEach((item) => {
+  changeReviewBgc(item);
+});
+
 // ===== css生成部分 ============================================================
 //----- 色碼轉rgba
 function colorToRgba(h = '', alpha = '') {
@@ -851,9 +900,9 @@ function preCssOpa(item, inputBox) {
 }
 function preCssBdrs(item, inputBox, radioValue) {
   // 暫時儲存的變數
-  let preCss = ''; 
+  let preCss = '';
   if (item === 'bdrs' && inputBox[0].value !== '') {
-      preCss += `  ${cssList[item].css}: ${bdrsStyle(inputBox, radioValue)};
+    preCss += `  ${cssList[item].css}: ${bdrsStyle(inputBox, radioValue)};
 `;
   }
   return preCss;
@@ -1307,30 +1356,6 @@ function preDpReview(item, inputBox, reviewBox, displayBox) {
     });
   }
 }
-function preTlbgiReview(item, inputBox, reviewBox) {
-  if (item === 'tlbgi') {
-    inputBox.forEach((item) => {
-      // 當input ghange時發生動作
-      item.addEventListener('input', function () {
-        // 判斷狀況後巡迴要改變的預覽後並連動css
-        // 改變預覽的背景顏色
-        if (inputBox[0].value !== '') {
-          reviewBox.forEach((item) => {
-            item.style.setProperty('background-image', 'url(' + inputBox[0].value + ')');
-            item.style.setProperty('background-repeat', 'repeat-x');
-            item.style.setProperty('background-position', 'bottom');
-          });
-        } else {
-          reviewBox.forEach((item) => {
-            item.style.setProperty('background-image', '');
-            item.style.setProperty('background-repeat', '');
-            item.style.setProperty('background-position', '');
-          });
-        }
-      });
-    });
-  }
-}
 function preFilterOpenReview(item, inputBox, radioBox) {
   let addListBox = document.querySelector('#review_tc');
   if (item === 'open') {
@@ -1423,7 +1448,6 @@ function preCssReview(obj, menuArr) {
       preBdReview(item, inputBox, reviewBox);
       preShaReview(item, inputBox, reviewBox);
       preDpReview(item, inputBox, reviewBox, displayBox);
-      preTlbgiReview(item, inputBox, reviewBox)
       preFilterOpenReview(item, inputBox, radioBox);
       preFilterPosiReview(item, inputBox, radioBox);
       preFilterCountReview(item, inputBox, radioBox);
