@@ -56,7 +56,7 @@ html(lang="en")
                 // 河道的噗
                 #timeline_cnt.timeline-cnt(style='padding-bottom: 0px;')
                   .block_cnt(style='height: 100% !important; width: 100% !important; left: 0px; transition: left 90ms linear 0s;')
-                    .plurk.cboxAnchor.new(style='left: 5%; top: 5%;')
+                    .plurk.cboxAnchor.new(style='left: 5%; top: 2%;')
                       table
                         tbody
                           tr
@@ -84,7 +84,7 @@ html(lang="en")
                             td.td_response_count
                               a(href='javascript:;')
                                 span.response_count 20
-                    .plurk.cboxAnchor.new.display.link_extend(style='left: 5%; top: 30%;')
+                    .plurk.cboxAnchor.new.display.link_extend(style='left: 50%; top: 2%;')
                       table
                         tbody
                           tr
@@ -115,6 +115,7 @@ html(lang="en")
                                             span 5
                                           a.pif-like.like.like-off
                                             span 10
+                                          a.pif-star.bookmark.mark-off
                                           a.pif-bone.gift
                                             span 1
                                           a.pif-option.option
@@ -122,7 +123,7 @@ html(lang="en")
                             td.td_response_count
                               a(href='javascript:;')
                                 span.response_count 20
-                    .plurk.cboxAnchor.display.link_extend.plurk_box(style='left: 50%; top: 5%;')
+                    .plurk.cboxAnchor.display.link_extend.plurk_box(style='left: 5%; top: 15%;')
                       table
                         tbody
                           tr
@@ -179,6 +180,7 @@ html(lang="en")
                                             span 5
                                           a.pif-like.like.like-off
                                             span 10
+                                          a.pif-star.bookmark.mark-off
                                           a.pif-bone.gift
                                             span 1
                                           a.pif-option.option
@@ -187,6 +189,37 @@ html(lang="en")
                                   a(href='javascript:;')
                                     span.posted
                                       time.timeago 發噗時間
+                            // 回應數
+                            td.td_response_count
+                              a(href='javascript:;')
+                                span.response_count 20
+                    .plurk.cboxAnchor.porn.new(style='left: 50%; top: 40%;')
+                      table
+                        tbody
+                          tr
+                            // 噗頭像
+                            td.td_img
+                              .p_img
+                                a(href='javascript:;')
+                                  img(src='https://picsum.photos/20/20?random=21')
+                            // 噗內容
+                            td
+                              .plurk_cnt
+                                table
+                                  tbody
+                                    tr.tr_cnt
+                                      // 噗暱稱&轉噗標示
+                                      td.td_qual
+                                        span
+                                          a.name(href='javascript:;') 暱稱
+                                      // 發噗內容
+                                      td.td_cnt
+                                        .text_holder
+                                          span
+                                            a.name(href="javascript:;" style="color:#E8AF37") 轉噗人名
+                                            span.porn-icon.pif-porn
+                                          .text_holder
+                                            | 這是R18噗的外觀
                             // 回應數
                             td.td_response_count
                               a(href='javascript:;')
@@ -408,6 +441,8 @@ html(lang="en")
                           #private_plurk
                             span#render_private_plurk
                               a.friend_man.private_plurk.hideBlock 傳送私人訊息
+                            span#render_send_gift
+                              a.friend_man.send_gift.hideBlock  送禮物
                           // 自介
                           p#about_me.aboutme.cboxAnchor 自介
                           // 地區
@@ -571,6 +606,8 @@ html(lang="en")
                           #private_plurk
                             span#render_private_plurk
                               a.friend_man.private_plurk.hideBlock 傳送私人訊息
+                            span#render_send_gift
+                              a.friend_man.send_gift.hideBlock  送禮物
                           // 自介
                           p#about_me.aboutme.cboxAnchor 自介
                           // 地區

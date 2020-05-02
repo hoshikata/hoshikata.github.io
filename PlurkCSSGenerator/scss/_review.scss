@@ -1,12 +1,26 @@
 .review {
+  z-index: index($z-index, review);
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  box-sizing: border-box;
   margin: 0;
-  padding: 0;
   padding-top: 100px;
+  padding-left: 360px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  transform: translateY(-100%);
+  transition: 0.3s;
   font-size: 13px;
+  background-color: $colorWhite;
   color: #333;
   @include breakpoint(sm) {
     display: none;
+  }
+  // 子選單的預覽按下後的展開狀態
+  &.review_open {
+    transform: translateY(0);
   }
 
   * {
@@ -204,6 +218,29 @@
     font-size: 12px;
     margin-left: 2px;
   }
+  .porn-icon {
+    display: inline-block;
+    margin: 0 4px 0 1px;
+  }
+  .porn-icon::before {
+    content: '';
+    position: relative;
+    top: 6px;
+    left: 0;
+    @include size(20px);
+    margin-top: -6px;
+    line-height: 0;
+    border-radius: 50%;
+    background-color: #ff3600;
+  }
+  .porn-icon::after {
+    content: 'R18';
+    position: relative;
+    top: -1px;
+    left: -18px;
+    font-size: 9px;
+    color: #fff;
+  }
   // 噗文
   .td_cnt {
     width: 100%;
@@ -361,6 +398,9 @@
   }
   .manager .like-off:hover {
     background: #e8443d !important;
+  }
+  .manager .mark-off:hover {
+    background: #5abac5 !important;
   }
   [class^="pif-"]::before,
   .pif-volume::before {
@@ -1199,6 +1239,9 @@
   .friend_man.private_plurk {
     background-color: #207298;
   }
+  .friend_man.send_gift {
+    background-color: #E8AD40;
+  }
 
   // 統計區
   #plurk-dashboard #dash-stats .dash-stats-karma {
@@ -1489,3 +1532,4 @@
     }
   }
 }
+

@@ -58,6 +58,20 @@
       css: 'background-image',
       title: '背景圖',
     },
+    tlbgirep: {
+      css: 'background-repeat',
+      title: '重複',
+    },
+    tlbgiposi: {
+      css: 'background-position',
+      title: '位置',
+      left: [0, 100, 1],
+    },
+    blur: {
+      css: 'filter: blur()',
+      title: '模糊化',
+      value: [0, 5, 1],
+    },
     open: {
       css: '',
       title: '頻道展開',
@@ -96,6 +110,13 @@
       subtitle: '.timeline-cnt .plurk_box .plurk_cnt',
       name: 'plurkcnt_extend',
       csstype: ['opa'],
+      hidden: false,
+    },
+    r18: {
+      title: 'R18的噗首外觀',
+      subtitle: '.timeline-cnt .porn:not(.link_extend) .text_holder',
+      name: 'plurkcnt_r18',
+      csstype: ['bgc', 'opa', 'bd', 'blur'],
       hidden: false,
     },
     pimg: {
@@ -138,6 +159,13 @@
       subtitle: '.timeline-cnt .plurk_cnt a.meta',
       name: 'plurkcnt_piclink',
       csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd'],
+      hidden: false,
+    },
+    piclinkimg: {
+      title: '噗的有圖連結內的圖片',
+      subtitle: '.timeline-cnt .plurk_cnt a.meta img',
+      name: 'plurkcnt_piclinkimg',
+      csstype: ['opa', 'bdrs'],
       hidden: false,
     },
     link: {
@@ -434,7 +462,7 @@
       title: '時間軸生物',
       subtitle: '.timeline-bg',
       name: 'tl_bg',
-      csstype: ['tlbgi'],
+      csstype: ['tlbgi', 'tlbgirep', 'tlbgiposi'],
       hidden: false,
     },
   };
@@ -599,6 +627,42 @@
     }
     return preHtml;
   }
+  function preHtmlBgirep(key, item) {
+    let preHtml = '';
+    if (item === 'tlbgirep') {
+      preHtml += `
+    <div class="input_box ${item}">
+      <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
+      ${checkHtml(key.name, item)}
+    </div>
+    `;
+    }
+    return preHtml;
+  }
+  function preHtmlBgiposi(key, item) {
+    let preHtml = '';
+    if (item === 'tlbgiposi') {
+      preHtml += `
+    <div class="input_box ${item}">
+      <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
+      ${rangeHtml(key.name, item, cssList[item].left, '左方')}
+    </div>
+    `;
+    }
+    return preHtml;
+  }
+  function preHtmlBlur(key, item) {
+    let preHtml = '';
+    if (item === 'blur') {
+      preHtml += `
+    <div class="input_box ${item}">
+      <h6 data-css="${cssList[item].css}">${cssList[item].title}</h6>
+      ${rangeHtml(key.name, item, cssList[item].value)}
+    </div>
+    `;
+    }
+    return preHtml;
+  }
   function preHtmlOpen(key, item) {
     let preHtml = '';
     if (item === 'open') {
@@ -687,6 +751,9 @@
         preHtml += preHtmlPosi(obj[key], item);
         preHtml += preHtmlSize(obj[key], item);
         preHtml += preHtmlBgi(obj[key], item);
+        preHtml += preHtmlBgirep(obj[key], item);
+        preHtml += preHtmlBgiposi(obj[key], item);
+        preHtml += preHtmlBlur(obj[key], item);
         preHtml += preHtmlOpen(obj[key], item);
         preHtml += preHtmlFtposi(obj[key], item);
         preHtml += preHtmlToicon(obj[key], item);
@@ -715,7 +782,7 @@
       preMenu += `<li class="item"><a href="#${obj[key].name}">${obj[key].title}</a></li>`;
     }
     if (obj !== otherList) {
-      resultMenu += `<ul class="menu_list"><li class="item"><a href="#review_${menuArr}">預覽</a></li>${preMenu}</ul>`;
+      resultMenu += `<ul class="menu_list"><li class="item"><a href="#review_${menuArr}" class="review_btn">預覽</a></li>${preMenu}</ul>`;
     } else {
       resultMenu += `<ul class="menu_list">${preMenu}</ul>`;
     }
@@ -833,6 +900,28 @@
   togglerItem.addEventListener('click', () => {
     togglerItem.classList.toggle('has_click');
     menuClickItem.classList.toggle('menu_click');
+  });
+
+  //----- 預覽按下按鈕後展開
+  let reviewBtn = document.querySelectorAll('.review_btn');
+  let reviewBox = document.querySelectorAll('.review');
+  reviewBtn.forEach((item, i) => {
+    item.addEventListener('click', () => {
+      reviewBox[i].classList.toggle('review_open');
+    });
+  });
+
+  //----- 改變預覽視窗的背景顏色
+  menuBlock.forEach((item) => {
+    if (item !== 'other') {
+      // 抓到input
+      let bgcSelector = document.querySelector('#review_' + item + ' .review_background #selector');
+      // 抓到預覽背景
+      let inputBgcBlock = document.querySelector('#review_' + item + ' > .container');
+      bgcSelector.addEventListener('input', function () {
+        inputBgcBlock.style.setProperty('background-color', bgcSelector.value);
+      });
+    }
   });
 
   // ===== css生成部分 ============================================================
@@ -974,9 +1063,40 @@
     // 暫時儲存的變數
     let preCss = '';
     if (item === 'tlbgi' && inputBox[0].value !== '') {
-      preCss += `  background-repeat: repeat-x;
-  background-position:bottom;
-  ${cssList[item].css}: url("${inputBox[0].value}");
+      preCss += `  ${cssList[item].css}: url("${inputBox[0].value}");
+`;
+    }
+    return preCss;
+  }
+  function preCssTlbgirep(item, displayValue) {
+    // 暫時儲存的變數
+    let preCss = '';
+    if (item === 'tlbgirep' && displayValue.checked) {
+      preCss += `  ${cssList[item].css}: repeat-x;
+`;
+    } else if (item === 'tlbgirep' && displayValue.checked === false) {
+      preCss += `  ${cssList[item].css}: no-repeat;
+`;
+    }
+    return preCss;
+  }
+  function preCssTlbgiposi(item, inputBox) {
+    // 暫時儲存的變數
+    let preCss = '';
+    if (item === 'tlbgiposi' && inputBox[0].value !== '') {
+      preCss += `  ${cssList[item].css}: bottom left ${inputBox[0].value}%;
+`;
+    } else if (item === 'tlbgiposi' && inputBox[0].value === '') {
+      preCss += `  ${cssList[item].css}: bottom left 0%;
+`;
+    }
+    return preCss;
+  }
+  function preCssBlur(item, inputBox) {
+    // 暫時儲存的變數
+    let preCss = '';
+    if (item === 'blur' && inputBox[0].value !== '') {
+      preCss += `  filter: blur(${opaStyle(inputBox)});
 `;
     }
     return preCss;
@@ -1108,7 +1228,7 @@
         // 抓圓角單位
         let radioValue = document.querySelector('[name="' + obj[key].name + '_' + item + '"]:checked');
         // 抓隱藏 checked
-        let displayValue = document.querySelector('[name="' + obj[key].name + '_dp"]');
+        let displayValue = document.querySelector('[name="' + obj[key].name + '_' + item + '"]');
         // 加上各個preCss
         preCss += preCssBgc(item, inputBox);
         preCss += preCssC(item, inputBox, cssSubtitle);
@@ -1121,6 +1241,9 @@
         preCss += preCssDcbgi(item, inputBox);
         preCss += preCssSize(item, inputBox);
         preCss += preCssTlbgi(item, inputBox);
+        preCss += preCssTlbgirep(item, displayValue);
+        preCss += preCssTlbgiposi(item, inputBox);
+        preCss += preCssBlur(item, inputBox);
       });
       // 如果run出來的preCss不等於空字串時，再產生css
       if (preCss !== '') {
@@ -1362,6 +1485,26 @@ ${filterAllCss}${result}`;
       });
     }
   }
+  function preBlurReview(item, inputBox, reviewBox) {
+    if (item === 'blur') {
+      inputBox.forEach((item) => {
+        // 當input ghange時發生動作
+        item.addEventListener('input', function () {
+          // 判斷狀況後巡迴要改變的預覽後並連動css
+          // 改變預覽的透明度
+          if (inputBox[0].value !== '') {
+            reviewBox.forEach((item) => {
+              item.style.setProperty('filter', 'blur(' + inputBox[0].value + 'px)');
+            });
+          } else {
+            reviewBox.forEach((item) => {
+              item.style.setProperty('filter', '');
+            });
+          }
+        });
+      });
+    }
+  }
   function preFilterOpenReview(item, inputBox, radioBox) {
     let addListBox = document.querySelector('#review_tc');
     if (item === 'open') {
@@ -1454,6 +1597,7 @@ ${filterAllCss}${result}`;
         preBdReview(item, inputBox, reviewBox);
         preShaReview(item, inputBox, reviewBox);
         preDpReview(item, inputBox, reviewBox, displayBox);
+        preBlurReview(item, inputBox, reviewBox);
         preFilterOpenReview(item, inputBox, radioBox);
         preFilterPosiReview(item, inputBox, radioBox);
         preFilterCountReview(item, inputBox, radioBox);
@@ -1463,17 +1607,6 @@ ${filterAllCss}${result}`;
   // 巡迴contentList，讓每個分頁的預覽運作
   contentList.forEach((item, i) => {
     preCssReview(item, menuBlock[i]);
-  });
-
-  //----- 改變預覽視窗的背景顏色
-  menuBlock.forEach((item) => {
-    // 抓到input
-    let bgcSelector = document.querySelector('#review_' + item + ' .review_background #selector');
-    // 抓到預覽背景
-    let inputBgcBlock = document.querySelector('#review_' + item + ' > .container');
-    bgcSelector.addEventListener('input', function () {
-      inputBgcBlock.style.setProperty('background-color', bgcSelector.value);
-    });
   });
 
   //
