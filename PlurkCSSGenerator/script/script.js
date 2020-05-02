@@ -222,13 +222,13 @@
     bookmark: {
       title: '噗內書籤標籤',
       subtitle: '.bookmark_bookmark',
-      name: 'plurkbox_info',
+      name: 'plurkbox_bookmark',
       csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
       hidden: false,
     },
     private: {
       title: '噗內私噗標籤',
-      subtitle: '.private_private',
+      subtitle: '.private_info',
       name: 'plurkbox_private',
       csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
       hidden: false,
