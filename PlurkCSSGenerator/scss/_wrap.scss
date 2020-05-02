@@ -72,6 +72,9 @@
     }
     &:first-child {
       margin-bottom: 30px;
+      &::after {
+        height: 100%;
+      }
     }
     &::after {
       background-color: $colorSuccess;
@@ -85,6 +88,9 @@
 
 #other_block .menu_sub .item:first-child {
   margin-bottom: 0;
+  &::after {
+    height: 0;
+  }
 }
 
 //- 資訊圖示
