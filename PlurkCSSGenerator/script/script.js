@@ -201,7 +201,7 @@
     private: {
       title: '噗內私噗標籤',
       subtitle: '.private_private',
-      name: 'plurkbox_info',
+      name: 'plurkbox_private',
       csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
       hidden: false,
     },
@@ -300,10 +300,10 @@
       csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
       hidden: false,
     },
-    pic: {
+    img: {
       title: '個人頭像',
-      subtitle: '#plurk-dashboard .dash-group-left #dash-profile img.profile-pic',
-      name: 'profile_pic',
+      subtitle: '#plurk-dashboard .dash-group-left #dash-profile img.profilimg',
+      name: 'profile_img',
       csstype: ['opa', 'bdrs', 'sha'],
       hidden: false,
     },
@@ -430,10 +430,10 @@
       csstype: ['dp'],
       hidden: false,
     },
-    timelinebg: {
+    tlbg: {
       title: '時間軸生物',
       subtitle: '.timeline-bg',
-      name: 'timeline_bg',
+      name: 'tl_bg',
       csstype: ['tlbgi'],
       hidden: false,
     },
