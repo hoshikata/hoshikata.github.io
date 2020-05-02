@@ -302,7 +302,7 @@
     },
     img: {
       title: '個人頭像',
-      subtitle: '#plurk-dashboard .dash-group-left #dash-profile img.profilimg',
+      subtitle: '#plurk-dashboard .dash-group-left #dash-profile img.profile-pic',
       name: 'profile_img',
       csstype: ['opa', 'bdrs', 'sha'],
       hidden: false,
