@@ -66,12 +66,12 @@ $baseLineSize: 10;
     }
   }
   @if ($point == md) {
-    @media only screen and (max-width: 720px) {
+    @media only screen and (max-width: 770px) {
       @content;
     }
   }
   @if ($point == lg) {
-    @media only screen and (max-width: 1000px) {
+    @media only screen and (max-width: 1050px) {
       @content;
     }
   }

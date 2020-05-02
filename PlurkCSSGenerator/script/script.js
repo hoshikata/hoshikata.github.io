@@ -824,6 +824,17 @@
     });
   });
 
+  //----- 選單的RWD漢堡
+  // 抓到漢堡選單
+  let togglerItem = document.querySelector('.toggler');
+  // 抓到改變的menu
+  let menuClickItem = document.querySelector('.wrap > .menu');
+  // 當漢堡被點擊時，加上class
+  togglerItem.addEventListener('click', () => {
+    togglerItem.classList.toggle('has_click');
+    menuClickItem.classList.toggle('menu_click');
+  });
+
   // ===== css生成部分 ============================================================
   //----- 色碼轉rgba
   function colorToRgba(h = '', alpha = '') {
@@ -1447,16 +1458,15 @@ ${filterAllCss}${result}`;
   });
 
   //----- 改變預覽視窗的背景顏色
-  function changeReviewBgc(menuArr) {
+  menuBlock.forEach((item) => {
     // 抓到input
-    let bgcSelector = document.querySelector('#review_' + menuArr + ' .review_background #selector');
+    let bgcSelector = document.querySelector('#review_' + item + ' .review_background #selector');
     // 抓到預覽背景
-    let inputBgcBlock = document.querySelector('#review_' + menuArr + ' > .container');
+    let inputBgcBlock = document.querySelector('#review_' + item + ' > .container');
     bgcSelector.addEventListener('input', function () {
       inputBgcBlock.style.setProperty('background-color', bgcSelector.value);
     });
-  }
-  menuBlock.forEach((item) => {
-    changeReviewBgc(item);
   });
+
+  //
 }

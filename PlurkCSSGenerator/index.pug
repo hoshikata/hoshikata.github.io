@@ -9,7 +9,7 @@ html(lang="en")
     //- 導覽列
     header.header
       .container
-        .row
+        .row.por
           .col-4
             .logo
               .logo_block
@@ -17,10 +17,11 @@ html(lang="en")
                 span css.
                 .cover
               span.title Plurk CSS Generator
-          //- .col-1.f-grow
-            ul.info
-              li.icon
-                a.plurk_icon(href="https://www.plurk.com/hoshikata" target="_blank" data-tip="作者噗浪") P
+          .col-1
+            .toggler
+              span.toggler_item.item_top
+              span.toggler_item.item_mid
+              span.toggler_item.item_bottom
     //- Main-Space
     .wrap
       //- 主選單
@@ -162,12 +163,10 @@ html(lang="en")
                                             a.ex_link.meta(href='javascript:;')
                                               img(src='https://picsum.photos/86/86?random=24' height='40px')
                                               | 有圖連結
-                                            br
                                             // 圖片
-                                            | 圖片
-                                            br
                                             a.ex_link.pictureservices(href='javascript:;')
                                               img(src='https://picsum.photos/48/64?random=22' height='48')
+                                            | 圖片
                                             br
                                           // 表符
                                             | 表符
@@ -674,9 +673,16 @@ html(lang="en")
         #export.control
           .btn_Group
             button#create.btn 生成
+              .btn_icon
+                span
+                span
             button#select.btn 全選
-            //- a#download.btn 下載
+              .btn_icon
+                span
             button#clear.btn.btn-danger 清除
+              .btn_icon
+                span
+                span
           .container
             textarea#export_area.export(name="export")
     script(src="script/script.js")

@@ -27,6 +27,10 @@
     font-size: 1.5rem;
     text-transform: uppercase;
     color: $colorWhite;
+
+    @include breakpoint(sm) {
+      display: none;
+    }
   }
 }
 .logo_block {
@@ -99,86 +103,54 @@
   }
 }
 
-// 資訊圖示
-.info {
-  margin: auto;
-  padding: auto;
-  padding-right: 10px;
-  text-align: right;
-}
-.icon {
-  display: inline-block;
-  @include size(20px);
-  line-height: 20px;
-  text-align: center;
-}
-.plurk_icon {
-  position: relative;
-  display: inline-block;
-  @include size(18px);
-  font-family: sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-decoration: none;
-  border-radius: 3px;
-  background-color: $colorWhite;
-  color: $colorSecondary;
-  &::before {
-    content: attr(data-tip);
+//- 漢堡
+.toggler {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  @include size(25px, 30px);
+  box-sizing: border-box;
+  margin: 15px;
+  margin-left: 0;
+  margin-right: 45px;
+  cursor: pointer;
+  
+  .toggler_item {
     position: absolute;
-    display: block;
-    top: 25px;
-    right: -10px;
-    @include size(75px, 22px);
-    font-size: 0.8rem;
-    font-weight: normal;
-    line-height: 22px;
-    letter-spacing: 0.1em;
-    border-radius: 3px;
-    background-color: $colorPrimary;
-    color: $colorWhite;
+    @include size(100%, 3px);
+    padding: 0;
+    margin: 0;
+    transform-origin: center center;
+    transition: 0.3s;
+    background-color: $colorWhite;
   }
-  &::after {
-    content: '';
-    position: absolute;
-    display: block;
-    top: 20px;
-    left: 3px;
-    @include triangle($colorPrimary, top, 8px, 6px);
+  .item_top {
+    margin-bottom: 15px;
   }
-  &::before,
-  &::after {
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.2s;
+  .item_bottom {
+    margin-top: 16px;
   }
-  &:hover::before,
-  &:hover::after {
-    visibility: visible;
-    opacity: 1;
+  
+  //RWD
+  @include breakpoint(md) {
+    display: flex;
   }
 }
 
-.menu {display: flex;}
-.menu_toggle {
-  flex-grow: 1;
-}
-.menu .info {
-  margin: 0;
-  margin-bottom: 15px;
-  padding: 0;
-  padding-left: 25px;
-  text-align: left;
-}
-.menu .plurk_icon {
-  &::before {
-    top: -30px;
-    left: -10px;
-    background-color: $colorSecondary;
+.has_click {
+  .toggler_item {
   }
-  &::after {
-    top: -10px;
-    @include triangle($colorSecondary, bottom, 8px, 6px);
-    border-bottom: none;
+  .item_top {
+    margin-bottom: 0;
+  }
+  .item_bottom {
+    margin-top: 0;
+    transform: rotate(45deg);
+  }
+  .item_top, .item_mid {
+    transform: rotate(-45deg);
   }
 }
