@@ -1069,24 +1069,28 @@
     return preCss;
   }
   function preCssTlbgirep(item, displayValue) {
+    // 抓到時間軸背景圖的value
+    let tlbgiBox = document.querySelector('.tl_bg_tlbgi')
     // 暫時儲存的變數
     let preCss = '';
-    if (item === 'tlbgirep' && displayValue.checked) {
+    if (item === 'tlbgirep' && tlbgiBox.value !== '' && displayValue.checked) {
       preCss += `  ${cssList[item].css}: repeat-x;
 `;
-    } else if (item === 'tlbgirep' && displayValue.checked === false) {
+    } else if (item === 'tlbgirep' && tlbgiBox.value !== '' && displayValue.checked === false) {
       preCss += `  ${cssList[item].css}: no-repeat;
 `;
     }
     return preCss;
   }
   function preCssTlbgiposi(item, inputBox) {
+    // 抓到時間軸背景圖的value
+    let tlbgiBox = document.querySelector('.tl_bg_tlbgi')
     // 暫時儲存的變數
     let preCss = '';
-    if (item === 'tlbgiposi' && inputBox[0].value !== '') {
+    if (item === 'tlbgiposi' && tlbgiBox.value !== '' && inputBox[0].value !== '') {
       preCss += `  ${cssList[item].css}: bottom left ${inputBox[0].value}%;
 `;
-    } else if (item === 'tlbgiposi' && inputBox[0].value === '') {
+    } else if (item === 'tlbgiposi' && tlbgiBox.value !== '' && inputBox[0].value === '') {
       preCss += `  ${cssList[item].css}: bottom left 0%;
 `;
     }
