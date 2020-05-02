@@ -1273,6 +1273,10 @@ ${filterAllCss}${result}`;
                 item.style.setProperty('border-radius', inputBox[0].value + radioBox[1].value);
                 item.style.setProperty('overflow', 'hidden');
               });
+            } else {
+              reviewBox.forEach((item) => {
+                item.style.setProperty('border-radius', '');
+              });
             }
           } else if (ofhDecide === false) {
             if (inputBox[0].value !== '' && radioBox[0].checked) {
@@ -1282,6 +1286,10 @@ ${filterAllCss}${result}`;
             } else if (inputBox[0].value !== '' && radioBox[1].checked) {
               reviewBox.forEach((item) => {
                 item.style.setProperty('border-radius', inputBox[0].value + radioBox[1].value);
+              });
+            } else {
+              reviewBox.forEach((item) => {
+                item.style.setProperty('border-radius', '');
               });
             }
           } else {
