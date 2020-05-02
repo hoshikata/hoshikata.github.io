@@ -116,7 +116,7 @@
       title: 'R18的噗首外觀',
       subtitle: '.timeline-cnt .porn:not(.link_extend) .text_holder',
       name: 'plurkcnt_r18',
-      csstype: ['bgc', 'opa', 'bd', 'blur'],
+      csstype: ['blur'],
       hidden: false,
     },
     pimg: {
