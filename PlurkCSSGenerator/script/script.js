@@ -915,7 +915,7 @@
   menuBlock.forEach((item) => {
     if (item !== 'other') {
       // 抓到input
-      let bgcSelector = document.querySelector('#review_' + item + ' .review_background #selector');
+      let bgcSelector = document.querySelector('#selector_' + item);
       // 抓到預覽背景
       let inputBgcBlock = document.querySelector('#review_' + item + ' > .container');
       bgcSelector.addEventListener('input', function () {
