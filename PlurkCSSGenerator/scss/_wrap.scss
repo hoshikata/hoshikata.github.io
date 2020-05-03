@@ -73,14 +73,15 @@
     & + .item {
       margin-top: 5px;
     }
+    &::after {
+      background-color: $colorSuccess;
+    }
     &:first-child {
       margin-bottom: 30px;
       &::after {
         height: 100%;
+        background-color: $colorWarning;
       }
-    }
-    &::after {
-      background-color: $colorSuccess;
     }
     a, a:visited {
       text-decoration: none;
