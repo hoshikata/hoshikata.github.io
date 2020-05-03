@@ -221,7 +221,7 @@
     },
     bookmark: {
       title: '噗內書籤標籤',
-      subtitle: '.bookmark_bookmark',
+      subtitle: '.bookmark_info',
       name: 'plurkbox_bookmark',
       csstype: ['bgc', 'c', 'opa', 'bdrs', 'bd', 'sha'],
       hidden: false,
