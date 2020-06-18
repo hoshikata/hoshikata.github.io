@@ -257,12 +257,6 @@ ul {
 .exp_list {
   margin-left: 50px;
   border-left: 2px solid $colorLightGray;
-  @include breakpoint(md) {
-    margin-left: 20px;
-  }
-  @include breakpoint(sm) {
-    margin-left: 10px;
-  }
   & > li {
     position: relative;
     margin-left: 20px;
@@ -295,6 +289,22 @@ ul {
     }
     &:hover::after {
       background-color: $colorPrimary;
+    }
+  }
+  @include breakpoint(md) {
+    margin-left: 20px;
+  }
+  @include breakpoint(sm) {
+    margin-left: 10px;
+    & > li {
+      margin-left: 10px;
+      &::before, 
+      &::after {
+        left: -26px;
+      }
+      &::before {
+        width: 26px;
+      }
     }
   }
   .time {
